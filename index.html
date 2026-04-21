@@ -1,0 +1,820 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Newspapers & Magazines | UND Libraries</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --und-green: #009A44;      /* UND Kelly green */
+    --und-green-dark: #00773A; /* Darker shade for hover/accents */
+    --und-black: #000000;
+    --und-white: #FFFFFF;
+    --und-gray-dark: #333333;
+    --und-gray: #7A7A7A;
+    --und-gray-light: #D9D9D9;
+    --und-gray-bg: #F4F4F4;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: Arial, Helvetica, sans-serif;
+    color: var(--und-black);
+    background: var(--und-white);
+    line-height: 1.55;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  h1, h2, h3, h4, .display {
+    font-family: 'Oswald', 'Arial Narrow', Arial, sans-serif;
+    font-weight: 600;
+    font-stretch: condensed;
+    text-transform: uppercase;
+    letter-spacing: 0.02em;
+    line-height: 1.1;
+  }
+
+  a { color: var(--und-green-dark); text-decoration: underline; text-underline-offset: 3px; }
+  a:hover { color: var(--und-black); }
+
+  /* ---------- Top utility bar ---------- */
+  .utility-bar {
+    background: var(--und-black);
+    color: var(--und-white);
+    font-size: 0.8rem;
+    padding: 0.5rem 0;
+  }
+  .utility-bar .container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+  .utility-bar a { color: var(--und-white); text-decoration: none; margin-left: 1.2rem; }
+  .utility-bar a:hover { color: var(--und-green); }
+
+  /* ---------- Header / hero ---------- */
+  header.site-header {
+    background: var(--und-white);
+    border-bottom: 4px solid var(--und-green);
+    padding: 1.25rem 0;
+  }
+  header.site-header .container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 1rem;
+  }
+  .brand {
+    display: flex;
+    align-items: baseline;
+    gap: 0.75rem;
+  }
+  .brand .mark {
+    font-family: 'Oswald', sans-serif;
+    font-weight: 700;
+    font-size: 2rem;
+    color: var(--und-green);
+    letter-spacing: 0.03em;
+  }
+  .brand .mark-sub {
+    font-family: 'Oswald', sans-serif;
+    font-weight: 400;
+    font-size: 1.1rem;
+    color: var(--und-black);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+  }
+  nav.primary a {
+    font-family: 'Oswald', sans-serif;
+    font-weight: 500;
+    text-transform: uppercase;
+    color: var(--und-black);
+    margin-left: 1.5rem;
+    text-decoration: none;
+    font-size: 0.95rem;
+    letter-spacing: 0.04em;
+  }
+  nav.primary a:hover { color: var(--und-green); border-bottom: 2px solid var(--und-green); }
+
+  /* ---------- Hero ---------- */
+  .hero {
+    background:
+      linear-gradient(90deg, rgba(0,0,0,0.78) 0%, rgba(0,0,0,0.35) 55%, rgba(0,0,0,0) 100%),
+      linear-gradient(135deg, #0b3d22 0%, #145a32 50%, #009A44 100%);
+    color: var(--und-white);
+    padding: 4rem 0 4.5rem;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::after {
+    content: "";
+    position: absolute;
+    right: -60px;
+    top: 50%;
+    transform: translateY(-50%) rotate(-8deg);
+    width: 420px;
+    height: 300px;
+    background: repeating-linear-gradient(
+      0deg,
+      rgba(255,255,255,0.06) 0 2px,
+      transparent 2px 26px
+    );
+    pointer-events: none;
+  }
+  .hero .container { position: relative; z-index: 1; }
+  .hero .eyebrow {
+    font-family: 'Oswald', sans-serif;
+    font-weight: 500;
+    letter-spacing: 0.3em;
+    font-size: 0.85rem;
+    color: var(--und-white);
+    opacity: 0.9;
+    margin-bottom: 1rem;
+    text-transform: uppercase;
+  }
+  .hero h1 {
+    font-size: clamp(2.5rem, 6vw, 4.5rem);
+    max-width: 18ch;
+    font-weight: 700;
+  }
+  .hero .lede {
+    font-size: 1.15rem;
+    max-width: 60ch;
+    margin-top: 1.25rem;
+    line-height: 1.55;
+  }
+  .hero .hero-cta {
+    margin-top: 1.75rem;
+    display: flex;
+    gap: 0.75rem;
+    flex-wrap: wrap;
+  }
+
+  /* ---------- Buttons ---------- */
+  .btn {
+    display: inline-block;
+    font-family: 'Oswald', sans-serif;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    padding: 0.75rem 1.4rem;
+    text-decoration: none;
+    border: 2px solid transparent;
+    transition: all 0.15s ease;
+    cursor: pointer;
+    font-size: 0.95rem;
+  }
+  .btn-primary {
+    background: var(--und-green);
+    color: var(--und-white);
+    border-color: var(--und-green);
+  }
+  .btn-primary:hover {
+    background: var(--und-black);
+    color: var(--und-white);
+    border-color: var(--und-black);
+  }
+  .btn-outline {
+    background: transparent;
+    color: var(--und-white);
+    border-color: var(--und-white);
+  }
+  .btn-outline:hover {
+    background: var(--und-white);
+    color: var(--und-black);
+  }
+  .btn-ghost {
+    background: transparent;
+    color: var(--und-black);
+    border-color: var(--und-black);
+  }
+  .btn-ghost:hover {
+    background: var(--und-green);
+    color: var(--und-white);
+    border-color: var(--und-green);
+  }
+
+  /* ---------- Layout ---------- */
+  .container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 1.5rem;
+  }
+  section { padding: 3.5rem 0; }
+  section.alt { background: var(--und-gray-bg); }
+
+  .section-head {
+    margin-bottom: 2rem;
+    border-left: 6px solid var(--und-green);
+    padding-left: 1rem;
+  }
+  .section-head .eyebrow {
+    font-family: 'Oswald', sans-serif;
+    color: var(--und-green-dark);
+    letter-spacing: 0.2em;
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    margin-bottom: 0.35rem;
+  }
+  .section-head h2 {
+    font-size: clamp(1.75rem, 3vw, 2.5rem);
+  }
+  .section-head p.sub {
+    margin-top: 0.5rem;
+    font-size: 1rem;
+    color: var(--und-gray-dark);
+    max-width: 70ch;
+  }
+
+  /* ---------- Resource cards ---------- */
+  .grid {
+    display: grid;
+    gap: 1.5rem;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  }
+
+  .card {
+    background: var(--und-white);
+    border: 1px solid var(--und-gray-light);
+    border-top: 6px solid var(--und-green);
+    padding: 1.5rem 1.5rem 1.75rem;
+    display: flex;
+    flex-direction: column;
+    transition: transform 0.15s ease, box-shadow 0.15s ease, border-color 0.15s ease;
+  }
+  .card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+    border-top-color: var(--und-black);
+  }
+
+  .card .masthead {
+    font-family: 'Oswald', sans-serif;
+    font-weight: 700;
+    font-size: 1.6rem;
+    text-transform: uppercase;
+    color: var(--und-black);
+    line-height: 1.1;
+    margin-bottom: 0.25rem;
+  }
+  .card .subtitle {
+    font-family: 'Oswald', sans-serif;
+    color: var(--und-gray);
+    font-size: 0.8rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    margin-bottom: 1rem;
+  }
+
+  .card .meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.35rem;
+    margin-bottom: 0.9rem;
+  }
+  .tag {
+    display: inline-block;
+    font-family: Arial, sans-serif;
+    font-size: 0.72rem;
+    padding: 0.22rem 0.55rem;
+    background: var(--und-gray-bg);
+    color: var(--und-gray-dark);
+    border: 1px solid var(--und-gray-light);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+  .tag.green {
+    background: var(--und-green);
+    color: var(--und-white);
+    border-color: var(--und-green);
+  }
+
+  .card p.desc {
+    color: var(--und-gray-dark);
+    font-size: 0.95rem;
+    margin-bottom: 1rem;
+    flex-grow: 0;
+  }
+
+  .card details {
+    margin: 0.25rem 0 1rem;
+    border-top: 1px dashed var(--und-gray-light);
+    padding-top: 0.85rem;
+  }
+  .card details summary {
+    font-family: 'Oswald', sans-serif;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--und-green-dark);
+    cursor: pointer;
+    font-size: 0.9rem;
+    list-style: none;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+  .card details summary::before {
+    content: "+";
+    display: inline-block;
+    width: 1.1em;
+    height: 1.1em;
+    line-height: 1;
+    text-align: center;
+    font-weight: 700;
+    color: var(--und-white);
+    background: var(--und-green);
+    font-family: Arial, sans-serif;
+  }
+  .card details[open] summary::before { content: "−"; }
+  .card details summary:hover { color: var(--und-black); }
+
+  .card ol, .card ul {
+    margin: 0.75rem 0 0.25rem 1.25rem;
+    font-size: 0.93rem;
+    color: var(--und-gray-dark);
+  }
+  .card ol li, .card ul li { margin-bottom: 0.4rem; }
+
+  .card .actions {
+    margin-top: auto;
+    padding-top: 0.5rem;
+    display: flex;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+  }
+  .card .actions .btn { font-size: 0.85rem; padding: 0.6rem 1rem; }
+
+  /* Wide/hero card for Aviation Week (Alfred's liaison area) */
+  .card.featured {
+    grid-column: 1 / -1;
+    background: linear-gradient(135deg, var(--und-black) 0%, #1a1a1a 100%);
+    color: var(--und-white);
+    border: none;
+    border-top: 6px solid var(--und-green);
+    position: relative;
+    overflow: hidden;
+    display: grid;
+    grid-template-columns: 1.3fr 1fr;
+    gap: 2rem;
+    padding: 2rem;
+  }
+  .card.featured::before {
+    content: "AEROSPACE";
+    position: absolute;
+    top: 50%;
+    right: -30px;
+    transform: translateY(-50%) rotate(-90deg);
+    font-family: 'Oswald', sans-serif;
+    font-size: 8rem;
+    font-weight: 700;
+    color: rgba(0, 154, 68, 0.08);
+    letter-spacing: 0.1em;
+    pointer-events: none;
+  }
+  .card.featured .masthead { color: var(--und-white); font-size: 2rem; position: relative; }
+  .card.featured .subtitle { color: var(--und-green); }
+  .card.featured p.desc { color: #cccccc; }
+  .card.featured details { border-top-color: rgba(255,255,255,0.2); }
+  .card.featured details summary { color: var(--und-green); }
+  .card.featured ol, .card.featured ul { color: #dddddd; }
+  .card.featured .tag { background: rgba(255,255,255,0.1); color: var(--und-white); border-color: rgba(255,255,255,0.25); }
+  .card.featured .tag.green { background: var(--und-green); border-color: var(--und-green); }
+  @media (max-width: 768px) {
+    .card.featured { grid-template-columns: 1fr; }
+  }
+
+  /* ---------- Quick links strip ---------- */
+  .quick-links {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 1rem;
+  }
+  .ql-card {
+    background: var(--und-white);
+    border: 1px solid var(--und-gray-light);
+    padding: 1.25rem;
+    text-decoration: none;
+    color: var(--und-black);
+    display: block;
+    transition: all 0.15s ease;
+  }
+  .ql-card:hover {
+    background: var(--und-black);
+    color: var(--und-white);
+    border-color: var(--und-black);
+  }
+  .ql-card:hover .ql-title { color: var(--und-green); }
+  .ql-card .ql-title {
+    font-family: 'Oswald', sans-serif;
+    font-size: 1.2rem;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    margin-bottom: 0.35rem;
+  }
+  .ql-card .ql-desc {
+    font-size: 0.88rem;
+    color: var(--und-gray-dark);
+  }
+  .ql-card:hover .ql-desc { color: var(--und-gray-light); }
+
+  /* ---------- Help / contact ---------- */
+  .help-band {
+    background: var(--und-green);
+    color: var(--und-white);
+    padding: 2.5rem 0;
+  }
+  .help-band .container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1.5rem;
+    flex-wrap: wrap;
+  }
+  .help-band h2 { font-size: 2rem; }
+  .help-band p { margin-top: 0.4rem; max-width: 55ch; }
+  .help-band .btn-outline { border-color: var(--und-white); color: var(--und-white); }
+  .help-band .btn-outline:hover { background: var(--und-white); color: var(--und-green-dark); }
+
+  /* ---------- Footer ---------- */
+  footer {
+    background: var(--und-black);
+    color: var(--und-gray-light);
+    padding: 2.5rem 0 1.5rem;
+    font-size: 0.88rem;
+  }
+  footer .container { display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 2rem; }
+  footer h4 {
+    color: var(--und-white);
+    font-size: 1rem;
+    margin-bottom: 0.75rem;
+    letter-spacing: 0.08em;
+  }
+  footer a { color: var(--und-gray-light); text-decoration: none; display: block; margin-bottom: 0.4rem; }
+  footer a:hover { color: var(--und-green); }
+  footer .copyright {
+    grid-column: 1 / -1;
+    border-top: 1px solid #333;
+    margin-top: 1.5rem;
+    padding-top: 1rem;
+    font-size: 0.8rem;
+    color: var(--und-gray);
+  }
+  @media (max-width: 700px) {
+    footer .container { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<!-- Top utility bar -->
+<div class="utility-bar">
+  <div class="container">
+    <span>University of North Dakota &middot; Chester Fritz Library</span>
+    <span>
+      <a href="https://library.und.edu/">Library Home</a>
+      <a href="https://libguides.und.edu/az/databases">All Databases</a>
+      <a href="https://library.und.edu/askus">Ask a Librarian</a>
+    </span>
+  </div>
+</div>
+
+<!-- Site header -->
+<header class="site-header">
+  <div class="container">
+    <div class="brand">
+      <span class="mark">UND</span>
+      <span class="mark-sub">Libraries</span>
+    </div>
+    <nav class="primary">
+      <a href="#featured">Featured</a>
+      <a href="#newspapers">Newspapers</a>
+      <a href="#magazines">Magazines</a>
+      <a href="#more">More Sources</a>
+      <a href="#help">Help</a>
+    </nav>
+  </div>
+</header>
+
+<!-- Hero -->
+<section class="hero">
+  <div class="container">
+    <div class="eyebrow">Chester Fritz Library / Popular Press</div>
+    <h1>Read the News. All of It. On Us.</h1>
+    <p class="lede">
+      Your UND login unlocks full access to national papers, regional reporting from across
+      North Dakota, aerospace intelligence, and hundreds of popular magazines &mdash; no paywalls,
+      no ads, no guesswork.
+    </p>
+    <div class="hero-cta">
+      <a class="btn btn-primary" href="#newspapers">Browse Newspapers</a>
+      <a class="btn btn-outline" href="#magazines">Browse Magazines</a>
+    </div>
+  </div>
+</section>
+
+<!-- FEATURED: Four headline resources -->
+<section id="featured">
+  <div class="container">
+    <div class="section-head">
+      <div class="eyebrow">Featured Subscriptions</div>
+      <h2>The Headliners</h2>
+      <p class="sub">
+        Four of the most requested titles at UND &mdash; each requires a free one-time account setup
+        using your UND email. After that, you can read on the web, on your phone, or in dedicated apps.
+      </p>
+    </div>
+
+    <div class="grid">
+
+      <!-- New York Times -->
+      <article class="card" id="nyt">
+        <div class="meta">
+          <span class="tag green">Registration Required</span>
+          <span class="tag">1851 &ndash; Present</span>
+          <span class="tag">App Available</span>
+        </div>
+        <div class="masthead">The New York Times</div>
+        <div class="subtitle">All the News Fit to Print</div>
+        <p class="desc">
+          Unlimited access to NYT.com, the historical archive back to 1851, Cooking, Games,
+          Wirecutter, The Athletic, and the inEducation site &mdash; plus the full suite of NYT apps.
+        </p>
+
+        <details>
+          <summary>How to Register</summary>
+          <ol>
+            <li>Click <strong>Access The Times</strong> below to open the NYT landing page.</li>
+            <li>Click the black <strong>Create Account</strong> button.</li>
+            <li>Enter your UND email address and click <strong>Continue</strong>.</li>
+            <li>Create a password (this does <em>not</em> need to be your UND password).</li>
+            <li>Select <strong>Student</strong> or <strong>Faculty/Staff</strong>.</li>
+            <li>Finish setting up your account.</li>
+            <li>Install the NYT, NYT Games, and NYT Cooking apps if you'd like.</li>
+          </ol>
+          <p style="margin-top:0.5rem; font-size:0.88rem;">
+            <strong>Heads up:</strong> Your pass renews periodically &mdash; if you're prompted to sign
+            in again, just revisit this page and click through.
+          </p>
+        </details>
+
+        <div class="actions">
+          <a class="btn btn-primary" href="https://library.und.edu/db/new-york-times">Access The Times</a>
+          <a class="btn btn-ghost" href="https://libguides.und.edu/az/new-york-times">Database Entry</a>
+        </div>
+      </article>
+
+      <!-- The Atlantic -->
+      <article class="card" id="atlantic">
+        <div class="meta">
+          <span class="tag green">Registration Required</span>
+          <span class="tag">NEW</span>
+          <span class="tag">Current Events</span>
+        </div>
+        <div class="masthead">The Atlantic</div>
+        <div class="subtitle">Of No Party or Clique</div>
+        <p class="desc">
+          Full access to TheAtlantic.com: long-form reporting, cultural criticism, politics,
+          science, and the complete magazine content alongside web-only features.
+        </p>
+
+        <details>
+          <summary>How to Sign In</summary>
+          <ol>
+            <li>Click <strong>Access The Atlantic</strong> below.</li>
+            <li>In the top-right corner of the Atlantic site, click <strong>Sign In</strong>.</li>
+            <li>Select <strong>An Institution Login</strong>.</li>
+            <li>Search for and select <strong>University of North Dakota</strong>.</li>
+            <li>Select your UND status and enter your UND email address.</li>
+            <li>Sign up for emails, or click <strong>Skip</strong> in the top-right.</li>
+          </ol>
+        </details>
+
+        <div class="actions">
+          <a class="btn btn-primary" href="https://library.und.edu/db/atlantic">Access The Atlantic</a>
+          <a class="btn btn-ghost" href="https://libguides.und.edu/az/the-atlantic">Database Entry</a>
+        </div>
+      </article>
+
+      <!-- Grand Forks Herald -->
+      <article class="card" id="herald">
+        <div class="meta">
+          <span class="tag green">UND Login</span>
+          <span class="tag">Local &amp; Regional</span>
+          <span class="tag">Via Access World News</span>
+        </div>
+        <div class="masthead">Grand Forks Herald</div>
+        <div class="subtitle">North Dakota's Newspaper of Record</div>
+        <p class="desc">
+          The Herald is available through <strong>Access World News</strong>, which also includes
+          dozens of other North Dakota papers &mdash; the Bismarck Tribune, Fargo Forum, Minot Daily News,
+          and more &mdash; plus thousands of titles from around the world.
+        </p>
+
+        <details>
+          <summary>How to Find the Herald</summary>
+          <ol>
+            <li>Click <strong>Open Access World News</strong> below.</li>
+            <li>Sign in with your UND credentials if prompted.</li>
+            <li>Use the <strong>Publications</strong> search to look up <em>Grand Forks Herald</em>,
+              or browse by <strong>North Dakota</strong> under State/Province.</li>
+            <li>Set up a saved search or email alert to track coverage of a specific topic.</li>
+          </ol>
+          <p style="margin-top:0.5rem; font-size:0.88rem;">
+            <strong>Tip:</strong> Access World News is excellent for local-history research, alumni
+            news, and tracking how a story developed across multiple ND outlets.
+          </p>
+        </details>
+
+        <div class="actions">
+          <a class="btn btn-primary" href="https://library.und.edu/db/access-world-news">Open Access World News</a>
+          <a class="btn btn-ghost" href="https://libguides.und.edu/az/cfl">Related Databases</a>
+        </div>
+      </article>
+
+      <!-- Aviation Week - featured wide card -->
+      <article class="card featured" id="awin">
+        <div>
+          <div class="meta">
+            <span class="tag green">UND Login</span>
+            <span class="tag">Aerospace &amp; Defense</span>
+            <span class="tag">Simultaneous User Limit</span>
+          </div>
+          <div class="masthead">Aviation Week Intelligence Network</div>
+          <div class="subtitle">AWIN &middot; The Aerospace Industry's Source of Record</div>
+          <p class="desc">
+            The complete AWIN platform: <em>Aviation Week &amp; Space Technology</em>, <em>Aviation Daily</em>,
+            <em>Aerospace Daily &amp; Defense Report</em>, <em>The Weekly of Business Aviation</em>,
+            <em>Inside MRO</em>, and more &mdash; with coverage going back to 1916, fleet data,
+            program profiles, and the World Aerospace Database.
+          </p>
+          <p class="desc">
+            Indispensable for Aerospace Sciences, Space Studies, and anyone researching the aviation
+            and defense industries.
+          </p>
+        </div>
+
+        <div>
+          <details open>
+            <summary>Getting the Most Out of AWIN</summary>
+            <ul>
+              <li><strong>Create a My AWIN account</strong> the first time you access the site to save
+                searches, set alerts, and use some premium features.</li>
+              <li><strong>Advanced Search</strong> lets you limit by <em>Articles</em> and filter by
+                publication and date range &mdash; far more precise than the quick search.</li>
+              <li><strong>Fleet Data &amp; Organizations</strong> tabs profile operators, aircraft by
+                serial number, and program status.</li>
+              <li><strong>Close your browser when finished</strong> &mdash; concurrent user access is
+                limited by our license.</li>
+              <li>The online edition of <em>AW&amp;ST</em> is updated weekly; the print/archive
+                edition compiles biweekly and may have different titles and photos.</li>
+            </ul>
+          </details>
+
+          <div class="actions">
+            <a class="btn btn-primary" href="https://library.und.edu/db/aviation-week">Access AWIN</a>
+            <a class="btn btn-outline" href="https://libguides.und.edu/aviation">Aviation Research Guide</a>
+          </div>
+        </div>
+      </article>
+
+    </div>
+  </div>
+</section>
+
+<!-- More newspapers & magazines -->
+<section class="alt" id="newspapers">
+  <div class="container">
+    <div class="section-head">
+      <div class="eyebrow">Broader Collections</div>
+      <h2>Newspapers &amp; Popular Magazines</h2>
+      <p class="sub">
+        Beyond the four headline titles, UND Libraries licenses dozens more newspaper and
+        popular-magazine databases &mdash; regional papers, trade weeklies, historical archives,
+        and international coverage. The links below are your starting points.
+      </p>
+    </div>
+
+    <div class="quick-links" id="more">
+      <a class="ql-card" href="https://libguides.und.edu/az/cfl?t=60336">
+        <div class="ql-title">All Newspapers &amp; Magazines</div>
+        <div class="ql-desc">The full filtered list of every newspaper and popular-magazine database at UND.</div>
+      </a>
+      <a class="ql-card" href="https://library.und.edu/db/access-world-news">
+        <div class="ql-title">Access World News</div>
+        <div class="ql-desc">Thousands of U.S. and international papers &mdash; including every major ND daily.</div>
+      </a>
+      <a class="ql-card" href="https://library.und.edu/db/overdrive">
+        <div class="ql-title">Libby / OverDrive</div>
+        <div class="ql-desc">Digital magazines, audiobooks, and ebooks through the ND Academic Consortium.</div>
+      </a>
+      <a class="ql-card" href="https://libguides.und.edu/az/databases">
+        <div class="ql-title">A&ndash;Z Database List</div>
+        <div class="ql-desc">Browse or filter every database the library subscribes to by subject, type, or vendor.</div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- Libby / OverDrive feature -->
+<section id="magazines">
+  <div class="container">
+    <div class="section-head">
+      <div class="eyebrow">On Your Phone or Tablet</div>
+      <h2>Libby: Magazines &amp; More, Wherever You Are</h2>
+      <p class="sub">
+        The Libby app &mdash; through the North Dakota Academic Consortium's OverDrive collection &mdash;
+        gives you checkouts of popular magazines, audiobooks, and ebooks using your UND affiliation.
+        No due dates to worry about for magazines; they simply expire when you're done.
+      </p>
+    </div>
+
+    <div class="grid">
+      <article class="card">
+        <div class="meta"><span class="tag green">App &amp; Web</span><span class="tag">UND Login</span></div>
+        <div class="masthead">Set Up Libby</div>
+        <div class="subtitle">Three Steps to Get Reading</div>
+        <ol style="margin-left:1.25rem; color: var(--und-gray-dark); font-size:0.95rem;">
+          <li style="margin-bottom:0.4rem;">Install <strong>Libby</strong> from your phone's app store (or use the web version).</li>
+          <li style="margin-bottom:0.4rem;">Choose <strong>North Dakota Academic Consortium &mdash; University of North Dakota</strong> as your library.</li>
+          <li style="margin-bottom:0.4rem;">Sign in with your UND credentials and start borrowing.</li>
+        </ol>
+        <div class="actions">
+          <a class="btn btn-primary" href="https://library.und.edu/db/overdrive">Open OverDrive</a>
+        </div>
+      </article>
+
+      <article class="card">
+        <div class="meta"><span class="tag">Good to Know</span></div>
+        <div class="masthead">What's in the Collection?</div>
+        <div class="subtitle">Magazines, Audiobooks, Ebooks</div>
+        <p class="desc">
+          Libby's magazine collection rotates, but expect titles across news, lifestyle, hobbies,
+          business, and entertainment. Magazines don't count against audiobook/ebook limits, and
+          back issues are often available months after the current release.
+        </p>
+        <p class="desc">
+          Looking for something specific? Use the <strong>Search</strong> icon in Libby, or browse
+          the <strong>Magazines</strong> category from the library home screen.
+        </p>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- Help band -->
+<section class="help-band" id="help">
+  <div class="container">
+    <div>
+      <h2>Can't Find What You Need?</h2>
+      <p>
+        Ask a librarian. We'll help you track down a specific article, set up a citation
+        export, or build a saved search that emails you when new coverage appears.
+      </p>
+    </div>
+    <a class="btn btn-outline" href="https://library.und.edu/askus">Ask a Librarian</a>
+  </div>
+</section>
+
+<!-- Footer -->
+<footer>
+  <div class="container">
+    <div>
+      <h4>UND Libraries</h4>
+      <p style="color: var(--und-gray-light); margin-bottom:0.6rem;">
+        Chester Fritz Library<br>
+        3051 University Ave Stop 9000<br>
+        Grand Forks, ND 58202-9000
+      </p>
+      <p style="color: var(--und-gray);">(701) 777-4629</p>
+    </div>
+    <div>
+      <h4>Libraries</h4>
+      <a href="https://library.und.edu/">Chester Fritz Library</a>
+      <a href="https://med.und.edu/library/">SMHS Library Resources</a>
+      <a href="https://law.und.edu/library/">Thormodsgard Law Library</a>
+    </div>
+    <div>
+      <h4>Quick Links</h4>
+      <a href="https://libguides.und.edu/az/databases">All Databases</a>
+      <a href="https://libguides.und.edu/">Research Guides</a>
+      <a href="https://library.und.edu/askus">Ask a Librarian</a>
+    </div>
+    <div class="copyright">
+      &copy; University of North Dakota &middot; Chester Fritz Library. All rights reserved.
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
